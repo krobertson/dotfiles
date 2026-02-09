@@ -1,0 +1,152 @@
+// -*- mode: jsonc -*-
+{
+    "reload_style_on_change": true,
+    "layer": "top",
+    "position": "top",
+    "height": 26,
+    "spacing": 2,
+
+    "modules-left": [
+        "hyprland/workspaces",
+    ],
+    "modules-right": [
+        "idle_inhibitor",
+        "pulseaudio",
+        "network",
+        "bluetooth",
+        //"cpu",
+        //"memory",
+        "backlight",
+        "battery",
+        "clock",
+        "tray",
+        "custom/power"
+    ],
+
+    // Modules configuration
+    "hyprland/workspaces": {
+      //"disable-scroll": true,
+      "all-outputs": false,
+      "persistent-workspaces": {
+        "DP-1": ["1", "2", "3"],
+        "DP-4": ["4", "5"]
+      },
+      //"active-only": false,
+      "on-click": "activate",
+      "format": "{icon}",
+      "format-icons": {
+        "default": "",
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "0",
+        "active": "󱓻"
+      }
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+    "tray": {
+        // "icon-size": 21,
+        "spacing": 10,
+        // "icons": {
+        //   "blueman": "bluetooth",
+        //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
+        // }
+    },
+    "clock": {
+        "format": "{:L%I:%M %p}",
+        "format-alt": "{:L%d %B W%V %Y}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    },
+    "cpu": {
+        "format": "{usage}% ",
+        "tooltip": false
+    },
+    "memory": {
+        "format": "{}% "
+    },
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{percent}% {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-full": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-alt": "{time} {icon}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["", "", "", "", ""]
+    },
+
+    "network": {
+      "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+      "format": "{icon}",
+      "format-alt": "{ifname}: {ipaddr}/{cidr}",
+      "format-wifi": "{icon}",
+      "format-ethernet": "󰀂",
+      "format-linked": "{ifname} (No IP) ",
+      "format-disconnected": "󰤮",
+      "tooltip-format-wifi": " {essid} ({signalStrength}% / {frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+      "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+      "tooltip-format-disconnected": "Disconnected ⚠",
+      "interval": 3,
+      "spacing": 1,
+      //"on-click": "omarchy-launch-wifi"
+    },
+
+    "bluetooth": {
+      "format": "",
+      "format-off": "󰂲",
+      "format-disabled": "󰂲",
+      "format-connected": "󰂱",
+      "format-no-controller": "",
+      "tooltip-format": "Devices connected: {num_connections}",
+      "on-click": "launch-tui bluetui"
+    },
+
+    "pulseaudio": {
+      "format": "{volume}% {icon}",
+      "on-click": "~/.local/bin/launch-tui wiremix",
+      "on-click-right": "pamixer -t",
+      "tooltip-format": "Playing at {volume}%",
+      "scroll-step": 5,
+      "format-muted": "",
+      "format-icons": {
+        "headphone": "",
+        "headset": "",
+        "default": ["", "", ""]
+      }
+    },
+
+    "custom/power": {
+      "format" : "⏻ ",
+		  "tooltip": false,
+  		"menu": "on-click",
+	  	"menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
+		  "menu-actions": {
+			  "shutdown": "shutdown",
+  			"reboot": "reboot",
+	  		"suspend": "systemctl suspend",
+		  	"hibernate": "systemctl hibernate"
+  		}
+    }
+}

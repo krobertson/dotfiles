@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo "show" | nc -U /tmp/sherlock_daemon.sock

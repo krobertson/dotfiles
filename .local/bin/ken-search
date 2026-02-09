@@ -1,0 +1,36 @@
+#!/usr/bin/env zx
+
+const browser = `Vivaldi-flatpak`
+const nixChannel = `25.11`
+
+// prompt and get input
+var input = await $`fuzzel --dmenu --lines 0 --prompt "search: "`.text()
+input = input.trimEnd()
+
+let url
+
+// determine url
+if (input.startsWith("!nix")) {
+  // !nix pkgname
+  url = `https://search.nixos.org/packages?channel=${nixChannel}&from=0&size=50&sort=relevance&type=packages&query=${encodeURIComponent(input.replace("!nix ", ""))}`
+} else if (input.startsWith("!home")) {
+  // !home home-manager-property-name
+  url = `https://home-manager-options.extranix.com/?query=${encodeURIComponent(input.replace("!home ", ""))}&release=release-${nixChannel}`
+} else {
+  url = `https://www.google.com/search?q=${encodeURIComponent(input)}`
+}
+
+// locate browser
+const allWindows = await $`niri msg --json windows`.json()
+const browserWindow = allWindows.filter((w) => w.app_id == browser).sort((a,b) => b.focus_timestamp.secs - a.focus_timestamp.secs)[0]
+
+// commands
+let commands = []
+if (browserWindow) {
+  commands.push($`niri msg action focus-window --id=${browserWindow.id}`)
+}
+commands.push($`xdg-open ${url}`)
+
+await Promise.all(commands)
+
+// vim: ts=2 sts=2 sw=2 et syntax=javascript

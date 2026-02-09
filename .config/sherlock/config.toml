@@ -1,0 +1,35 @@
+[units]
+lengths = "meters"
+weights = "kg"
+volumes = "l"
+temperatures = "C"
+currency = "eur"
+
+[debug]
+try_suppress_errors = false
+try_suppress_warnings = false
+app_paths = []
+
+[appearance]
+width = 900
+height = 593
+gsk_renderer = "cairo"
+icon_paths = ["testconfig/icons"]
+icon_size = 22
+use_base_css = true
+opacity = 1.0
+mod_key_ascii = ["⇧", "⇧", "⌘", "⌘", "⎇", "✦", "✦", "⌘"]
+
+[behavior]
+use_xdg_data_dir_icons = false
+animate = true
+global_prefix = "uwsm-app --"
+
+[status_bar]
+enable = true
+
+[search_bar_icon]
+enable = true
+icon = "system-search-symbolic"
+icon_back = "sherlock-back"
+size = 22

@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# Launch the passed in URL as a web app in the default browser (or chromium if the default doesn't support --app).
+
+#browser=$(xdg-settings get default-web-browser)
+
+browser="flatpak run --branch=stable --arch=x86_64 --command=/app/bin/chromium org.chromium.Chromium"
+
+#case $browser in
+#google-chrome* | brave-browser* | microsoft-edge* | opera* | vivaldi* | helium*) ;;
+#*) browser="chromium.desktop" ;;
+#esac
+
+#exec setsid uwsm-app -- $(sed -n 's/^Exec=\([^ ]*\).*/\1/p' {~/.local,~/.nix-profile,/usr,/var/lib/flatpak/exports}/share/applications/$browser 2>/dev/null | head -1) --app="$1" "${@:2}"
+
+exec setsid uwsm-app -- $browser --app="$1" "${@:2}"
+
+# echo $(sed -n 's/^Exec=\([^ ]*\).*/\1/p' {~/.local,~/.nix-profile,/usr,/var/lib/flatpak/exports}/share/applications/$browser 2>/dev/null | head -1) --app="$1" "${@:2}"
